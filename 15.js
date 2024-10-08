@@ -11,7 +11,6 @@ var threeSum = function (nums) {
   if (nums[nums.length - 1] === 0 && nums[0] === 0) {
     return [[0, 0, 0]];
   }
-  let pre;
   const result = [];
   for (let index = 0; index < nums.length; index++) {
     const current = nums[index];
