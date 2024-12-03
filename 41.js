@@ -18,7 +18,7 @@ var firstMissingPositive = function (nums) {
   }
   for (let index = 0; index < nums.length; index++) {
     if (nums[index] !== index + 1) {
-      return index + 1; // 这里返回缺失的第一个正数
+      return index + 1; 
     }
   }
    return nums.length +1;
