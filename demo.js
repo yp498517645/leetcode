@@ -1,49 +1,84 @@
-//归并排序
-const param = [29, 10, 14, 37, 14, 25, 10];
-
 /**
- * 合并数组 从小到大
- * @param {Array} arr1
- * @param {Array} arr2
- * @returns {Array}
+ * @param {number} k
  */
-const merge = (arr1, arr2) => {
-  let i = 0;
-  let j = 0;
-  const result = [];
-  while (i < arr1.length && j < arr2.length) {
-    if (arr1[i] < arr2[j]) {
-      result.push(arr1[i]);
-      i++;
-    } else {
-      result.push(arr2[j]);
-      j++;
-    }
-  }
-  while (i < arr1.length) {
-    result.push(arr1[i]);
-    i++;
-  }
-  while (j < arr2.length) {
-    result.push(arr2[j]);
-    j++;
-  }
-  return result;
-};
-/**
- * 合并数组 从小到大
- * @param {Array} arr
- * @returns {any}
- */
-const sort = (arr) => {
-  if (arr.length <= 1) {
-    return arr;
-  }
-  const mid = Math.floor(arr.length / 2);
-  console.log('mid', mid);
-  const leftArr = arr.slice(0, mid);
-  const rightArr = arr.slice(mid, arr.length);
-  return merge(sort(leftArr), sort(rightArr));
+var MyCircularQueue = function (k) {
+  this.length = k;
+  this.queue = [];
 };
 
-console.log('结果', sort(param));
+/**
+ * @param {number} value
+ * @return {boolean}
+ */
+MyCircularQueue.prototype.enQueue = function (value) {
+  if (this.queue.length < this.length) {
+    this.queue.push(value);
+    return true;
+  }
+  return false;
+};
+
+/**
+ * @return {boolean}
+ */
+MyCircularQueue.prototype.deQueue = function () {
+  if (this.queue.length > 0) {
+    this.queue.unshift();
+    return true;
+  }
+  return false;
+};
+
+/**
+ * @return {number}
+ */
+MyCircularQueue.prototype.Front = function () {};
+
+/**
+ * @return {number}
+ */
+MyCircularQueue.prototype.Rear = function () {
+  if (this.queue.length > 0) {
+    return this.queue[this.queue.length];
+  }
+  return -1;
+};
+
+/**
+ * @return {boolean}
+ */
+MyCircularQueue.prototype.isEmpty = function () {
+  return this.queue.length === 0 ? true : false;
+};
+
+/**
+ * @return {boolean}
+ */
+MyCircularQueue.prototype.isFull = function () {
+  return this.queue.length >= this.length;
+};
+
+/**
+ * Your MyCircularQueue object will be instantiated and called as such:
+ * var obj = new MyCircularQueue(k)
+ * var param_1 = obj.enQueue(value)
+ * var param_2 = obj.deQueue()
+ * var param_3 = obj.Front()
+ * var param_4 = obj.Rear()
+ * var param_5 = obj.isEmpty()
+ * var param_6 = obj.isFull()
+ */
+
+//["MyCircularQueue","enQueue","enQueue","enQueue","enQueue","Rear","isFull","deQueue","enQueue","Rear"]
+//[[3],[1],[2],[3],[4],[],[],[],[4],[]]
+//[null,true,true,true,false,3,true,true,true,4]
+const circularQueue = new MyCircularQueue(3); // 设置长度为 3
+circularQueue.enQueue(1); // 返回 true
+circularQueue.enQueue(2); // 返回 true
+circularQueue.enQueue(3); // 返回 true
+circularQueue.enQueue(4); // 返回 false，队列已满
+circularQueue.Rear(); // 返回 3
+circularQueue.isFull(); // 返回 true
+circularQueue.deQueue(); // 返回 true
+circularQueue.enQueue(4); // 返回 true
+circularQueue.Rear(); // 返回 4
