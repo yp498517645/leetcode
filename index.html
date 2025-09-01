@@ -1,14 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0"
     />
-    <title>Document</title>
+    <title>demo</title>
   </head>
   <body>
-    <script></script>
+    <script>
+      const debounce = (cb, timeout) => {
+        let timer = null;
+        return (...args) => {
+          if (timer) {
+            clearTimeout(timer);
+          }
+          timer = setTimeout(() => {
+            cb(...args);
+            clearTimeout(timer);
+          }, timeout);
+        };
+      };
+
+      const throttle = (cb, gap) => {
+        let pre = performance.now();
+        return (...args) => {
+          const now = performance.now();
+          const canRun = now - pre >= gap;
+          if (canRun) {
+            cb(...args);
+            pre = now;
+          }
+        };
+      };
+    </script>
   </body>
 </html>
